@@ -1,0 +1,100 @@
+package task3;
+
+//interface taxable with members salestax and incometax
+import java.util.Scanner;
+
+interface Taxable {
+    double salesTax = 0.07;
+    double incomeTax = 0.105;
+
+    //abstract method
+    abstract void calcTax();
+}
+
+//implementing employee class from interface with fields employeeid , employee name and salary
+class Employee implements Taxable {
+    private int empId;
+    private String name;
+    private double salary;
+
+//creating parameterized constructor for class employee
+    public Employee(int empId, String name, double salary) {
+        this.empId = empId;
+        this.name = name;
+        this.salary = salary;
+    }
+//method to calculate incometax
+    public void calcTax() {
+        double taxAmount = salary * incomeTax;
+        System.out.println("Income tax for : " + name + " is " + taxAmount);
+    }
+}
+//implementing prodcut class from interface with fields product id, product price and quantity
+class Product implements Taxable {
+    private int pid;
+    private double price;
+    private int quantity;
+
+    //creating parameterized constructor for class product
+    public Product(int pid, double price, int quantity) {
+        this.pid = pid;
+        this.price = price;
+        this.quantity = quantity;
+
+    }
+    //method to calculate salestax
+    public void calcTax() {
+        double taxAmount = price * quantity * salesTax;
+        System.out.println("sales tax for " + quantity + " Product is : " + taxAmount);
+    }
+}
+//main class to accept and execute data
+public class DriverMain {
+    public static void main(String[] args) {
+        int EmpId;
+        String EmpName;
+        double EmpSalary;
+        //employee data
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter employee id : ");
+        EmpId = sc.nextInt();
+        System.out.println("enter employee name : ");
+        EmpName = sc.next();
+        System.out.println("enter employee salary : ");
+        EmpSalary = sc.nextDouble();
+        Employee employee = new Employee(EmpId, EmpName, EmpSalary);
+        int pid, quantity;
+        double price;
+        //product data
+        System.out.println("enter product id : ");
+        pid = sc.nextInt();
+        System.out.println("enter quantity of the product");
+        quantity = sc.nextInt();
+        System.out.println("enter price of the product");
+        price = sc.nextDouble();
+        Product product = new Product(pid, price, quantity);
+        //calling method to calculate taxes
+        employee.calcTax();
+        product.calcTax();
+
+
+    }
+}
+
+
+//OUTPUT
+
+Enter employee id : 
+6093
+enter employee name : 
+Shameer
+enter employee salary : 
+10000
+enter product id : 
+1101
+enter quantity of the product
+3
+enter price of the product
+560
+Income tax for Shameer is 1050.0
+sales tax for 3 Product is : 117.60000000000001
