@@ -1,0 +1,152 @@
+package task3;
+
+import java.util.Scanner;
+
+class Book{
+    int bookId;
+    String title;
+    String author;
+    boolean isAvailable;
+    public Book(int bookId,String title,String author,boolean isAvailable){
+        this.bookId=bookId;
+        this.title=title;
+        this.author=author;
+        this.isAvailable=isAvailable;
+
+    }
+    public int getBookid(){
+        return bookId;
+    }
+    public String getTitle(String title){
+        return title;
+    }
+    public String getAuthor(String author){
+        return author;
+    }
+    public boolean isAvailable(){
+        return isAvailable;
+    }
+    public void setAvailable(boolean available) {
+        isAvailable = available;
+    }
+    public String toString(){
+        return bookId +" "+ title +" "+ author +" "+ isAvailable;
+    }
+
+
+
+}
+class Library{
+    private Book[] books ;
+    int numBooks=0;
+    public Library(){
+        books= new Book[5];
+    }
+
+    public void addBook(Book book) {
+        if(numBooks < books.length){
+            books[numBooks]=book;
+            numBooks++;
+            System.out.println("Books added in library");
+        }
+        else
+            System.out.println("library is already full ");
+    }
+    public void replaceBook(int bookID, Book newBook) {
+        for (int i = 0; i < numBooks; i++) {
+            if (books[i].getBookid() == bookID) {
+                books[i] = newBook;
+                System.out.println("Book replaced ");
+                return;
+            }
+        }
+        System.out.println("Book not found.");
+    }
+    public void displayBooks() {
+        if (numBooks == 0) {
+            System.out.println("Library is empty.");
+            return;
+        }
+        System.out.println("Books in the library:");
+        for (int i = 0; i < numBooks; i++) {
+            System.out.println(books[i]);
+        }
+    }
+
+
+}
+
+public class BookManagementSystem {
+    public static void main(String[] args) {
+        Library library=new Library();
+        Scanner scanner = new Scanner(System.in);
+        while(true){
+            System.out.println("1. Add a book");
+            System.out.println("2. Replace a book");
+            System.out.println("3. display all book");
+            System.out.println("enter your choice");
+            int userChoice = scanner.nextInt();
+            switch (userChoice){
+
+                case 1:
+                    if (library.numBooks >= 5) {
+                        System.out.println(" Library is full.");
+                        break;
+                    }
+                    System.out.println("Enter Book ID: ");
+                    int bookID = scanner.nextInt();
+                    System.out.println("Enter Title: ");
+                    String title = scanner.next();
+                    System.out.println("Enter Author: ");
+                    String author=scanner.next();
+                    library.addBook(new Book(bookID, title, author, true));
+                    break;
+
+
+                case 2:
+                    System.out.println("Enter Book ID to replace: ");
+                    int id=scanner.nextInt();
+                    System.out.println("Enter new Title: ");
+                    String newTitle = scanner.next();
+                    System.out.println("Enter new Author: ");
+                    String newAuthor = scanner.next();
+                    Book newBook = new Book(id, newTitle, newAuthor, true);
+
+                    library.replaceBook(id,newBook);
+                    break;
+                case 3:
+                    System.out.println("Displaying all books");
+                    library.displayBooks();
+                    break;
+                default:
+                    System.out.println("Invalid choice");
+
+
+
+            }
+        }
+
+    }
+}
+
+//OUTPUT
+1. Add a book
+2. Replace a book
+3. display all book
+enter your choice : 
+1
+Enter Book ID: 
+1001
+Enter Title: 
+Manjummelboys
+Enter Author: 
+Lokesh
+Books added in library
+1. Add a book
+2. Replace a book
+3. display all book
+enter your choice : 
+3
+Displaying all books
+Books in the library:
+bookId :1001 Title :Manjummelboys Author:Lokesh available : true
